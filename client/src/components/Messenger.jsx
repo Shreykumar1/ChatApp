@@ -1,13 +1,19 @@
 import React from 'react'
 import LoginDialog from './account/LoginDialog'
-import { AppBar,Toolbar } from '@mui/material'
+import { AppBar,Toolbar, styled } from '@mui/material'
+
+const Header = styled(AppBar)`
+    height : 220px;
+    background-color : #00bfa5;
+    box-shadow : none `
 
 const Messenger = () => {
+    
   return (
     <div>
-        <AppBar >
+        <Header >
             <Toolbar />
-        </AppBar>
+        </Header>
         <LoginDialog />
     </div>
   )
