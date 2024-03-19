@@ -4,6 +4,7 @@ import { qrCodeImage } from '../../assets/data'
 import { GoogleLogin } from '@react-oauth/google'
 import {jwtDecode} from 'jwt-decode'
 import { useGlobalContext } from '../../context/AccountProvider'
+import { addUser } from '../../service/api'
 
 const Component = styled(Box)`
   display : flex;
@@ -48,12 +49,13 @@ const dialogStyle = {
     overflow : 'none',
 }
 
-const LoginDialog = () => {
+const LoginDialog =  () => {
   const {setAccount} = useGlobalContext();
-  const onLoginSuccess =  (res)=> {
+  const onLoginSuccess = async (res)=> {
     const decoded = jwtDecode(res.credential);
     console.log(decoded);
-    setAccount(decoded)
+    setAccount(decoded);
+    await addUser(decoded)
   }
   const onLoginError = (res)=> {
     console.log('Login Error',res);
