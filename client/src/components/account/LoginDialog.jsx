@@ -3,6 +3,7 @@ import React from 'react'
 import { qrCodeImage } from '../../assets/data'
 import { GoogleLogin } from '@react-oauth/google'
 import {jwtDecode} from 'jwt-decode'
+import { useGlobalContext } from '../../context/AccountProvider'
 
 const Component = styled(Box)`
   display : flex;
@@ -25,9 +26,11 @@ const StyledList = styled(Box)`
 const Title = styled(Typography)`
   font-size : 26px;
   color : #525252;
+  margin-bottom: 25px;
   font-weight : 300;
-  font-family : inherit;
+  font-family: Segoe UI,Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans,sans-serif;
   `
+  // font-family : inherit;
   
 const QRCode = styled('img')({
   width: 264,
@@ -36,7 +39,7 @@ const QRCode = styled('img')({
 })
 
 const dialogStyle = {
-    height : '96%',
+    height : '95%',
     marginTop : '12%',
     width : '60%',
     maxWidth : '100%',
@@ -46,18 +49,17 @@ const dialogStyle = {
 }
 
 const LoginDialog = () => {
+  const {setAccount} = useGlobalContext();
   const onLoginSuccess =  (res)=> {
-    console.log(res);
-    const token = res.credential;
-    const decoded = jwtDecode(token);
+    const decoded = jwtDecode(res.credential);
     console.log(decoded);
-
+    setAccount(decoded)
   }
-  const onLoginError =  ()=> {
-
+  const onLoginError = (res)=> {
+    console.log('Login Error',res);
   }
   return (
-    <Dialog open={true} PaperProps={{sx : dialogStyle}}>
+    <Dialog open={true} PaperProps={{sx : dialogStyle}} hideBackdrop={true}>
         <Component>
             <Container>
                 <Title>To use WhatsApp on your computer:</Title>
