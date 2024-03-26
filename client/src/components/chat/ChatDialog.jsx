@@ -7,6 +7,7 @@ import { UserContext } from '../../context/UserProvider';
 import Menu from './menu/Menu';
 // import ChatBox from './chat/ChatBox';
 import EmptyChat from './chat/EmptyChat';
+import ChatBox from './chat/ChatBox';
 
 const Component = styled(Box)`
     display: flex;
@@ -52,9 +53,10 @@ const ChatDialog = () => {
                 </LeftComponent>
                 <RightComponent>
                     {/* {
-                        Object.keys(person).length  ? <ChatBox/> : <EmptyChat />
+                        // Object.keys(person).length  ? <ChatBox/> : <EmptyChat />
                     } */}
-                    <EmptyChat />
+                    {/* <EmptyChat /> */}
+                    <ChatBox />
                 </RightComponent>
             </Component>
         </Dialog>

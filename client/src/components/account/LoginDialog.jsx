@@ -55,6 +55,7 @@ const LoginDialog =  () => {
     const decoded = jwtDecode(res.credential);
     console.log(decoded);
     setAccount(decoded);
+    localStorage.setItem('user',JSON.stringify(decoded));
     await addUser(decoded)
   }
   const onLoginError = (res)=> {
