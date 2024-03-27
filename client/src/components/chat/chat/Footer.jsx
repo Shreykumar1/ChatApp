@@ -37,7 +37,7 @@ const ClipIcon = styled(AttachFile)`
 `;
 
 
-const Footer = () => {
+const Footer = ({sendText, setValue, value}) => {
 
     return (
         <Container>
@@ -50,11 +50,13 @@ const Footer = () => {
                 id="fileInput"
                 style={{ display: 'none' }}
             />
-
             <Search>
-                <InputField
+            <InputField
                     placeholder="Type a message"
                     inputProps={{ 'aria-label': 'search' }}
+                    onChange={(e) => setValue(e.target.value)}
+                    onKeyDown={(e) => sendText(e)}
+                    value={value}
                 />
             </Search>
             <Mic />

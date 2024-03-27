@@ -34,13 +34,20 @@ const setConversation = async (data) => {
 const getConversation = async (data) => {
     try {
         const response = await axios.post(`${url}/conversation/get`,data);
-        console.log(response.data);
         return response.data;
-        // console.log(`Conversation Set Successfully`);
     } catch (error) {
-        console.log('ERROR in Conversation Set ',error);
+        console.log('ERROR in Conversation Get Api ',error);
+    }
+}
+
+const newMessage = async (data) => {
+    try {
+        const response = await axios.post(`${url}/message/add`,data);
+        return response.data;
+    } catch (error) {
+        console.log('ERROR in New Message Api ',error);
     }
 }
 
 
-export   { addUser, getAllUsers, setConversation }
+export   { addUser, getAllUsers, setConversation, getConversation, newMessage }

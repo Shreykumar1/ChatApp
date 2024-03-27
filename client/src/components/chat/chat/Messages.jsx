@@ -2,6 +2,8 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { Box, styled } from '@mui/material';
 
 import Footer from './Footer';
+import { useGlobalContext } from '../../../context/AccountProvider';
+import { newMessage } from '../../../service/api';
 
 const Wrapper = styled(Box)`
     background-image: url(${'https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'});
@@ -27,13 +29,35 @@ const Container = styled(Box)`
 
 
 
-const Messages = () => {
+const Messages = ({person, conversation}) => {
+    const {account} = useGlobalContext();
+    const [value,setValue] = useState();
+    console.log(conversation);
+
+    const sendText = (e) => {
+        const code = e.keycode || e.which ;
+        if(code == 13){
+            let message = {
+                senderId : account.sub,
+                receiverId : person.sub,
+                conversationId : conversation._id,
+                type : 'text',
+                text : value
+            }
+            setValue('');
+            newMessage(message);
+            console.log(message);
+        }
+    }
 
     return (
         <Wrapper>
             <Component>
             </Component>
             <Footer 
+            sendText ={sendText}
+            setValue ={setValue}
+            value = {value}
             />
         </Wrapper>
     )
