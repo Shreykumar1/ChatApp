@@ -4,6 +4,8 @@ import { Box, Typography, styled } from '@mui/material';
 import { Search, MoreVert } from '@mui/icons-material';
 
 import { defaultProfilePicture } from '../../../constants/data';
+import { AccountContext } from '../../../context/AccountProvider';
+
 
 const Header = styled(Box)`
     height: 44px;
@@ -40,6 +42,7 @@ const Status = styled(Typography)`
 `;
 
 const ChatHeader = ({ person }) => {  
+    // const person = useContext(A)
 
     const url = person.picture || defaultProfilePicture;
     

@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { styled, Box, Typography } from "@mui/material";
+import { UserContext } from '../../../context/UserProvider';
+import { AccountContext } from '../../../context/AccountProvider';
+import { setConversation } from '../../../service/api';
 
 const Component = styled(Box)`
     height: 45px;
@@ -34,6 +37,12 @@ const Text = styled(Typography)`
 `;
 
 const Conversation = ({ user }) => {
+    const {setPerson} = useContext(UserContext);
+    const {account} = useContext(AccountContext);
+    const getUser = async () => {
+        setPerson(user);
+        await setConversation({ senderId: account.sub, receiverId: user.sub });
+    }
   return (
     <Component onClick={() => getUser()}>
     <Box>

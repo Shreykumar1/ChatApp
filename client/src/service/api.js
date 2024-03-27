@@ -21,5 +21,26 @@ const getAllUsers = async () => {
     }
 }
 
+const setConversation = async (data) => {
+    try {
+        const response = await axios.post(`${url}/conversation/add`,data);
+        console.log(response.data);
+        // console.log(`Conversation Set Successfully`);
+    } catch (error) {
+        console.log('ERROR in Conversation Set ',error);
+    }
+}
 
-export   { addUser, getAllUsers }
+const getConversation = async (data) => {
+    try {
+        const response = await axios.post(`${url}/conversation/get`,data);
+        console.log(response.data);
+        return response.data;
+        // console.log(`Conversation Set Successfully`);
+    } catch (error) {
+        console.log('ERROR in Conversation Set ',error);
+    }
+}
+
+
+export   { addUser, getAllUsers, setConversation }
