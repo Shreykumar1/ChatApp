@@ -11,4 +11,13 @@ const newMessage = async (req,res) => {
     }
 }
 
-module.exports = { newMessage }
+const getMessage = async (req,res) => {
+    try {
+        const message = await Message.find({conversationId : req.params.id});
+        res.status(201).json(message);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+module.exports = { newMessage, getMessage }

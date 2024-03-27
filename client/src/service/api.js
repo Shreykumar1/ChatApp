@@ -48,6 +48,14 @@ const newMessage = async (data) => {
         console.log('ERROR in New Message Api ',error);
     }
 }
+const getMessage = async (id) => {
+    try {
+        const response = await axios.get(`${url}/message/get/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('ERROR in New Message Api ',error);
+    }
+}
 
 
-export   { addUser, getAllUsers, setConversation, getConversation, newMessage }
+export   { addUser, getAllUsers, setConversation, getConversation, newMessage, getMessage }

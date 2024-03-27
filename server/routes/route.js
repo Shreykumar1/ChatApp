@@ -1,7 +1,7 @@
 const express = require('express');
 const { addUser, getAllUsers } = require('../controllers/userController');
 const { newConversation, getConversation } = require('../controllers/conversationController');
-const { newMessage } = require('../controllers/messageController');
+const { newMessage, getMessage } = require('../controllers/messageController');
 const router = express.Router();
 
 
@@ -14,5 +14,6 @@ router.route('/conversation/add').post(newConversation);
 router.route('/conversation/get').post(getConversation);
 
 router.route('/message/add').post(newMessage);
+router.route('/message/get/:id').get(getMessage);
 
 module.exports = router;
