@@ -48,6 +48,7 @@ const newMessage = async (data) => {
         console.log('ERROR in New Message Api ',error);
     }
 }
+
 const getMessage = async (id) => {
     try {
         const response = await axios.get(`${url}/message/get/${id}`);
@@ -57,5 +58,14 @@ const getMessage = async (id) => {
     }
 }
 
+const uploadFile = async (data) => {
+    try {
+        const response = await axios.post(`${url}/file/upload`,data);
+        return response;
+    } catch (error) {
+        console.log('ERROR in Upload File Api ',error);
+    }
+}
 
-export   { addUser, getAllUsers, setConversation, getConversation, newMessage, getMessage }
+
+export   { addUser, getAllUsers, setConversation, getConversation, newMessage, getMessage, uploadFile }
