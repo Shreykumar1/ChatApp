@@ -37,8 +37,8 @@ const Messages = ({person, conversation}) => {
     const [newMessageFlag, setNewMessageFlag] = useState(false);
     const [file, setFile] = useState();
     const [image, setImage] = useState();
+    const scrollRef = useRef();
 
-    console.log(conversation);
     useEffect(()=>{
         const getData = async ()=>{
             const data = await getMessage(conversation._id);
@@ -47,6 +47,10 @@ const Messages = ({person, conversation}) => {
         }
         getData();
     },[conversation?._id, person._id, newMessageFlag])
+
+    useEffect(()=>{
+        scrollRef.current?.scrollIntoView({transition : 'smooth'})
+    }, [messages])
 
     const sendText = async (e) => {
         const code = e.keycode || e.which ;
@@ -83,7 +87,7 @@ const Messages = ({person, conversation}) => {
             <Component>
             {
                     messages && messages.map(message => (
-                        <Container >
+                        <Container ref={scrollRef}>
                             <Message message={message} />
                         </Container>
                     ))
