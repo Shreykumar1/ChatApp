@@ -5,7 +5,8 @@ import { GetApp as GetAppIcon } from '@mui/icons-material';
 
 import { AccountContext } from '../../../context/AccountProvider';
 
-import {  formatDate } from '../../../utils/common-utils';
+import {  downloadMedia, formatDate } from '../../../utils/common-utils';
+import {  iconPDF } from '../../../constants/data';
 
 const Wrapper = styled(Box)`
     background: #FFFFFF;
@@ -49,11 +50,15 @@ const Message = ({ message }) => {
         {
             account.sub === message.senderId ? 
                 <Own>
-                    <TextMessage message={message} />
+                    {
+                        message.type === "file" ? <ImageMessage message={message}/> : <TextMessage message={message} />
+                    }
                 </Own>
             : 
                 <Wrapper>
-                    <TextMessage message={message} />
+                    {
+                        message.type === "file" ? <ImageMessage message={message}/> : <TextMessage message={message} />
+                    }
                 </Wrapper>
         }
         
@@ -68,6 +73,30 @@ const TextMessage = ({ message }) => {
             <Text>{message.text}</Text>
             <Time>{formatDate(message.createdAt)}</Time>
         </>
+    )
+}
+
+const ImageMessage = ({message}) => {
+    console.log(message.text);
+    console.log(message?.text?.includes('.txt'));
+    return (
+        <Box style={{position : 'relative'}}>
+            {
+                (message?.text?.includes('.pdf') || message?.text?.includes('.txt') )?
+                <Box style={{display : 'flex'}}>
+                    <img src={iconPDF} alt="pdf" style={{width : 80}} />
+                    <Typography fontSize={14}>{message.text.split('/').pop()}</Typography>
+                </Box>
+                :
+                <img src={message.text} alt={message.text} width="200px"/>
+            }
+            <Time style={{position : 'absolute', bottom : 0, right : 0}}>
+                <GetAppIcon 
+                onClick = {(e)=> downloadMedia(e,message.text)}
+                style={{marginRight : 10, border : '1px solid grey', borderRadius : '50%'}} fontSize='small'/>
+                {formatDate(message.createdAt)}</Time>
+
+        </Box>
     )
 }
 

@@ -36,6 +36,8 @@ const Messages = ({person, conversation}) => {
     const [messages, setMessages] = useState([]);
     const [newMessageFlag, setNewMessageFlag] = useState(false);
     const [file, setFile] = useState();
+    const [image, setImage] = useState();
+
     console.log(conversation);
     useEffect(()=>{
         const getData = async ()=>{
@@ -46,20 +48,33 @@ const Messages = ({person, conversation}) => {
         getData();
     },[conversation?._id, person._id, newMessageFlag])
 
-    const sendText = (e) => {
+    const sendText = async (e) => {
         const code = e.keycode || e.which ;
         if(code == 13){
-            let message = {
-                senderId : account.sub,
-                receiverId : person.sub,
-                conversationId : conversation._id,
-                type : 'text',
-                text : value
+            let message = {}
+            if(!file){
+                 message = {
+                    senderId : account.sub,
+                    receiverId : person.sub,
+                    conversationId : conversation._id,
+                    type : 'text',
+                    text : value
+                }
+            }else{
+                 message = {
+                    senderId : account.sub,
+                    receiverId : person.sub,
+                    conversationId : conversation._id,
+                    type : 'file',
+                    text : image
+                }
             }
+            await newMessage(message);
+
             setValue('');
-            newMessage(message);
+            setFile('');
+            setImage('');
             setNewMessageFlag(prev => !prev)
-            console.log(message);
         }
     }
 
@@ -80,6 +95,7 @@ const Messages = ({person, conversation}) => {
             value = {value}
             file = {file}
             setFile={setFile}
+            setImage={setImage}
             />
         </Wrapper>
     )
