@@ -77,8 +77,6 @@ const TextMessage = ({ message }) => {
 }
 
 const ImageMessage = ({message}) => {
-    console.log(message.text);
-    console.log(message?.text?.includes('.txt'));
     return (
         <Box style={{position : 'relative'}}>
             {

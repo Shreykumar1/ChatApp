@@ -5,6 +5,7 @@ import { Search, MoreVert } from '@mui/icons-material';
 
 import { defaultProfilePicture } from '../../../constants/data';
 import { AccountContext } from '../../../context/AccountProvider';
+import { useGlobalContext } from '../../../context/AccountProvider';
 
 
 const Header = styled(Box)`
@@ -45,14 +46,15 @@ const ChatHeader = ({ person }) => {
     // const person = useContext(A)
 
     const url = person.picture || defaultProfilePicture;
-    
+    const { activeUsers } = useGlobalContext();
+    console.log(activeUsers);
 
     return (
         <Header>
             <Image src={url} alt="display picture" />     
             <Box>
                 <Name>{person.name}</Name>
-                <Status>Online</Status>
+                <Status>{activeUsers?.find(user => user.sub === person.sub) ? 'Online' : 'Offline'}</Status>
             </Box>   
             <RightContainer>
                 <Search />

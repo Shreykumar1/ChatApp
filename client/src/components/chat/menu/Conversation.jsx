@@ -1,8 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { styled, Box, Typography } from "@mui/material";
 import { UserContext } from '../../../context/UserProvider';
 import { AccountContext } from '../../../context/AccountProvider';
-import { setConversation } from '../../../service/api';
+import { setConversation, getConversation } from '../../../service/api';
+import { formatDate } from '../../../utils/common-utils';
+
 
 const Component = styled(Box)`
     height: 45px;
@@ -38,7 +40,16 @@ const Text = styled(Typography)`
 
 const Conversation = ({ user }) => {
     const {setPerson} = useContext(UserContext);
-    const {account} = useContext(AccountContext);
+    const {account, newMessageFlag, setNewMessageFlag} = useContext(AccountContext);
+    const [message, setMessage] = useState({});
+
+    useEffect(()=>{
+        const getConversationDetails = async ()=> {
+           const data =  await getConversation({ senderId : account.sub,receiverId : user.sub });
+           setMessage({text : data?.message , timestamp : data?.updatedAt})
+        }
+        getConversationDetails();
+    },[newMessageFlag])
     const getUser = async () => {
         setPerson(user);
         await setConversation({ senderId: account.sub, receiverId: user.sub });
@@ -51,14 +62,14 @@ const Conversation = ({ user }) => {
     <Box style={{width: '100%'}}>
         <Container>
             <Typography>{user.name}</Typography>
-            {/* { 
+            { 
                 message?.text && 
                 <Timestamp>{formatDate(message?.timestamp)}</Timestamp>        
-            } */}
+            }
         </Container>
-        {/* <Box>
+        <Box>
             <Text>{message?.text?.includes('localhost') ? 'media' : message.text}</Text>
-        </Box> */}
+        </Box>
     </Box>
 </Component>
   )

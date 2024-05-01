@@ -17,15 +17,22 @@ const StyledDivider = styled(Divider)`
 
 const Conversations = () => {
     const [users,setUsers] = useState([]);
-    const { account } = useGlobalContext();
+
+    const { account, socket, setActiveUsers } = useGlobalContext();
     useEffect( ()=>{
         const getData = async() =>{
             const data = await getAllUsers();
             setUsers(data);
-            console.log(data);
         }
         getData();
     },[]);
+
+    useEffect(()=>{
+        socket.current.emit('addUsers', account);
+        socket.current.on('getUsers',users => {
+            setActiveUsers(users);
+        },[account])
+    })
   return (
     <Box>
             {

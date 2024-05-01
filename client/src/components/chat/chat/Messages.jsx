@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { Box, styled } from '@mui/material';
 
+import { io } from 'socket.io-client';
+
 import Footer from './Footer';
 import { useGlobalContext } from '../../../context/AccountProvider';
 import { getMessage, newMessage } from '../../../service/api';
@@ -31,22 +33,34 @@ const Container = styled(Box)`
 
 
 const Messages = ({person, conversation}) => {
-    const {account} = useGlobalContext();
+    const {account, socket, newMessageFlag, setNewMessageFlag} = useGlobalContext();
     const [value,setValue] = useState();
     const [messages, setMessages] = useState([]);
-    const [newMessageFlag, setNewMessageFlag] = useState(false);
     const [file, setFile] = useState();
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
+    const [incomingMessage, setIncomingMessage] = useState(null);
+
     const scrollRef = useRef();
+
+    useEffect(()=>{
+        socket.current.on('getMessage',data => {
+            setIncomingMessage({...data, createdAt : Date.now()})
+        })
+    },[])
 
     useEffect(()=>{
         const getData = async ()=>{
             const data = await getMessage(conversation._id);
-            console.log(data);
             setMessages(data);
         }
         getData();
-    },[conversation?._id, person._id, newMessageFlag])
+    },[conversation?._id, person._id, newMessageFlag]);
+
+
+    useEffect(() => {
+        incomingMessage && conversation?.members?.includes(incomingMessage.senderId) && 
+            setMessages((prev) => [...prev, incomingMessage]);
+    }, [incomingMessage, conversation]);
 
     useEffect(()=>{
         scrollRef.current?.scrollIntoView({transition : 'smooth'})
@@ -73,10 +87,12 @@ const Messages = ({person, conversation}) => {
                     text : image
                 }
             }
+
+            socket.current.emit('sendMessage',message)
             await newMessage(message);
 
             setValue('');
-            setFile('');
+            setFile();
             setImage('');
             setNewMessageFlag(prev => !prev)
         }
