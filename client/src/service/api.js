@@ -41,6 +41,7 @@ const getConversation = async (data) => {
 }
 
 const newMessage = async (data) => {
+    console.log(data);
     try {
         const response = await axios.post(`${url}/message/add`,data);
         return response.data;

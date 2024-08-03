@@ -47,7 +47,7 @@ const ChatHeader = ({ person }) => {
 
     const url = person.picture || defaultProfilePicture;
     const { activeUsers } = useGlobalContext();
-    console.log(activeUsers);
+    // console.log(activeUsers);
 
     return (
         <Header>

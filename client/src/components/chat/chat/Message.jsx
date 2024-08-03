@@ -1,12 +1,17 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Drawer, styled, Typography } from '@mui/material';
 import { GetApp as GetAppIcon } from '@mui/icons-material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 import { AccountContext } from '../../../context/AccountProvider';
 
 import {  downloadMedia, formatDate } from '../../../utils/common-utils';
 import {  iconPDF } from '../../../constants/data';
+import MyModal from './MyModal';
+import MyDropdown from './MyDropdown';
 
 const Wrapper = styled(Box)`
     background: #FFFFFF;
@@ -47,7 +52,8 @@ const Message = ({ message }) => {
 
     return (
         <>
-        {
+        {/* {openModal&&<MyModal openModal={openModal} handleClose={handleClose}/>} */}
+        {   
             account.sub === message.senderId ? 
                 <Own>
                     {
@@ -66,14 +72,21 @@ const Message = ({ message }) => {
     )
 }
 
+
 const TextMessage = ({ message }) => {
-    
+    // const [openModal, setOpenModal] = useState(false);
+
+    const handleClose = () => setOpenModal(false);
     return (
-        <>
-            <Text>{message.text}</Text>
-            <Time>{formatDate(message.createdAt)}</Time>
-        </>
-    )
+      <>
+        <Text>{message.text}</Text>
+        <Time>{formatDate(message.createdAt)}</Time>
+        {/* <Dialog fullWidth={'xs'} maxWidth={'xs'} open={open} onClose={handleClose}>
+          Share1
+        </Dialog> */}
+        <MyDropdown text={message.text}  />
+      </>
+    );
 }
 
 const ImageMessage = ({message}) => {
