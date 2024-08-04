@@ -18,7 +18,6 @@ const Wrapper = styled(Box)`
     padding: 5px;
     max-width: 60%;
     width: fit-content;
-    display: flex;
     border-radius: 10px;
     word-break: break-word;
 `;
@@ -29,9 +28,25 @@ const Own = styled(Box)`
     max-width: 60%;
     width: fit-content;
     margin-left: auto;
-    display: flex;
     border-radius: 10px;
     word-break: break-word;
+`;
+
+const Reply = styled(Box)`
+    background: #E1F3E1;
+    padding: 5px;
+    margin-left: auto;
+    border-left : 3px solid #007700;
+    border-radius : 6px;
+    color : #6C7474;
+`;
+
+const Heading = styled(Typography)`
+    font-size: 13px;
+    padding: 0 25px 0 5px;
+    font-weight : 600;
+    letter-spacing : 0px;
+    color : #007700;
 `;
 
 const Text = styled(Typography)`
@@ -49,7 +64,7 @@ const Time = styled(Typography)`
 
 const Message = ({ message }) => {
     const { account } = useContext(AccountContext);
-
+    
     return (
         <>
         {/* {openModal&&<MyModal openModal={openModal} handleClose={handleClose}/>} */}
@@ -75,16 +90,23 @@ const Message = ({ message }) => {
 
 const TextMessage = ({ message }) => {
     // const [openModal, setOpenModal] = useState(false);
-
+    const { replyPerson, replyText, edited } = message;
     const handleClose = () => setOpenModal(false);
     return (
       <>
-        <Text>{message.text}</Text>
-        <Time>{formatDate(message.createdAt)}</Time>
-        {/* <Dialog fullWidth={'xs'} maxWidth={'xs'} open={open} onClose={handleClose}>
-          Share1
-        </Dialog> */}
-        <MyDropdown text={message.text}  />
+        {replyPerson && <Reply>
+            <Heading>{replyPerson}</Heading>
+            <Text>{replyText}</Text>
+            </Reply>}
+        <div style={{display: 'flex'}}>
+            <Text>{message.text}</Text>
+            {edited && <Time style={{paddingRight : "5px"}}>Edited</Time>} 
+            <Time>{formatDate(message.createdAt)}</Time>
+            {/* <Dialog fullWidth={'xs'} maxWidth={'xs'} open={open} onClose={handleClose}>
+              Share1
+            </Dialog> */}
+            <MyDropdown text={message.text}  />
+        </div>
       </>
     );
 }
@@ -105,7 +127,8 @@ const ImageMessage = ({message}) => {
                 <GetAppIcon 
                 onClick = {(e)=> downloadMedia(e,message.text)}
                 style={{marginRight : 10, border : '1px solid grey', borderRadius : '50%'}} fontSize='small'/>
-                {formatDate(message.createdAt)}</Time>
+                {formatDate(message.createdAt)}
+            </Time>
 
         </Box>
     )

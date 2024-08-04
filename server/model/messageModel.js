@@ -15,7 +15,16 @@ const MessageSchema = new mongoose.Schema({
     },
     type : {
         type : String
-    }
+    },
+    replyPerson : {
+        type : String
+    },
+    replyText : {
+        type : String
+    },
+    edited : {
+        type : Boolean
+    },
 },{
     timestamps : true
 })
