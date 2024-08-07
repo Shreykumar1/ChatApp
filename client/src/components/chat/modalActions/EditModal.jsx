@@ -46,9 +46,9 @@ const EditModal = () => {
   return (
     <>
       <HeaderModal text={"Edit"} />
-      <Box style={{ padding: "5px 15px", maxHeight: "350px", overflow: "scroll" }}>
-      </Box>
-      <Box style={{ display: "flex", justifyContent: "center" }}>
+      {/* <Box style={{ padding: "5px 15px", maxHeight: "350px", overflow: "scroll" }}>
+      </Box> */}
+      <Box style={{ padding: "15px 0px",display: "flex", justifyContent: "center" }}>
         <TextField
           id="outlined-multiline-static"
           label="Edit Message"

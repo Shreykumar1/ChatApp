@@ -4,6 +4,7 @@ import ReplyModal from './ReplyModal';
 import EditModal from './EditModal';
 import ShareModal from './ShareModal';
 import { Box, styled } from '@mui/material';
+import DeleteModal from './DeleteModal';
 
 const Container = styled(Box)`
     width : 310px`
@@ -18,8 +19,10 @@ const ModalsSelect = ({text, conversationId}) => {
         <ShareModal text={share.text} conversationId={conversationId} />
       ) : choice === "reply" ? (
         <ReplyModal />
-      ) : (
+      ) :  choice === "edit" ? (
         <EditModal />
+      ) : (
+        <DeleteModal />
       )}
     </Container>
   );
