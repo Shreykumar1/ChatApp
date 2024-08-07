@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { Menu, MenuItem, Button } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { UserContext } from '../../../context/UserProvider';
-const MyDropdown = ({text}) => {
+const MyDropdown = ({text,person,conversationId}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const {setShare} = useContext(UserContext);
   const handleClick = (event) => {
@@ -11,9 +11,11 @@ const MyDropdown = ({text}) => {
       setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-      console.log(text);
-      setShare({text : text, open : true});
+    const handleClose = (choice) => {
+      console.log(choice);
+      if(choice!==null){
+      setShare({text : text, person: person, conversationId: conversationId, open : true, choice: choice});
+      }
       setAnchorEl(null);
   };
 
@@ -33,10 +35,10 @@ const MyDropdown = ({text}) => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={()=>handleClose(null)}
       >
-        <MenuItem onClick={handleClose}>Share</MenuItem>
-        <MenuItem onClick={handleClose}>Reply</MenuItem>
+        <MenuItem onClick={()=>handleClose("share")}>Share</MenuItem>
+        <MenuItem onClick={()=>handleClose("reply")}>Reply</MenuItem>
       </Menu>
     </div>
   );

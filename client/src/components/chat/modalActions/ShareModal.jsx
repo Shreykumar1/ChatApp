@@ -7,43 +7,24 @@ import { getAllUsers, getConversation, newMessage } from '../../../service/api';
 import { useGlobalContext } from '../../../context/AccountProvider';
 import SharePerson from './SharePerson';
 import { Padding } from '@mui/icons-material';
+import HeaderModal from './HeaderModal';
 
-// const Header = styled(Box)`
-//     padding : 10px 20px;
-//     display : flex;
-//     column-gap : 10px
-//     `
-// height: 108px;
-const Header = styled(Box)`
-    background: #008069;
-    color: #FFFFFF;
-    display: flex;
-      margin-top: auto;
-      padding: 15px;
-      font-weight: 600;
-  `;
 
-const Text = styled(Typography)`
-    font-size: 18px;
-    `
 const Footer = styled(Box)`
-    display: flex;
+      display: flex;
       margin-top: auto;
       padding: 5px 15px;
       justify-content : flex-end;
   `;
 
-//   margin: 0 0 0 70px;
+
 const StyledDivider = styled(Divider)`
   background-color: #e9edef;
   opacity: .6;
 `;
 
-const Container = styled(Box)`
-    width : 310px`
-const btnStyle = { outline: "none", border: "none", background: "none", color: "white" }
-const sendBtn = { outline: "none", border: "none", background: "#008069", borderRadius: "50%", width: "max-content", 
-    padding: "8px 10px", color: "white", position: "relative", right: "10px",cursor : "pointer" }
+
+
 
 
 const ShareModal = ({ text, conversationId }) => {
@@ -51,6 +32,22 @@ const ShareModal = ({ text, conversationId }) => {
     const { account, setNewMessageFlag } = useGlobalContext();
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState({});
+
+    const isEmpty = (obj) => {
+        return Object.keys(obj).length === 0;
+    };
+    const sendBtn = {
+        outline: "none",
+        border: "none",
+        backgroundColor: isEmpty(checked)?"grey": "#008069",
+        cursor: isEmpty(checked)?"not-allowed": "pointer",
+        borderRadius: "50%",
+        width: "max-content",
+        padding: "8px 10px",
+        color: "white",
+        position: "relative",
+        right: "10px",
+      };
 
     const handleChange = (event) => {
         setChecked({
@@ -97,14 +94,10 @@ const ShareModal = ({ text, conversationId }) => {
     };
 
 
+
     return (
-        <Container>
-            <Header>
-                <button onClick={() => setShare({ text: '', open: false })} style={btnStyle}><CloseIcon /></button>
-                <Text>Share message to</Text>
-            </Header>
-
-
+        <>
+            <HeaderModal text={"Share message to"} />
             <Box style={{ padding: "5px 15px", maxHeight: "350px", overflow: "scroll" }}>
                 <FormGroup>
                     {
@@ -126,7 +119,7 @@ const ShareModal = ({ text, conversationId }) => {
                     <SendIcon />
                 </button>
             </Footer>
-        </Container>
+        </>
     )
 }
 

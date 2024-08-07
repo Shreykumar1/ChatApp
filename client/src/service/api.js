@@ -17,7 +17,16 @@ const getAllUsers = async () => {
         const response = await axios.get(`${url}/users`);
         return response.data;
     } catch (error) {
-        console.log('ERROR in adding User',error);
+        console.log('ERROR in getting all Users',error);
+    }
+}
+
+const getSingleUser = async (data) => {
+    try {
+        const response = await axios.get(`${url}/singleuser/${data.sub}`);
+        return response.data;
+    } catch (error) {
+        console.log('ERROR in GET single User',error);
     }
 }
 
@@ -69,4 +78,4 @@ const uploadFile = async (data) => {
 }
 
 
-export   { addUser, getAllUsers, setConversation, getConversation, newMessage, getMessage, uploadFile }
+export   { addUser, getAllUsers,getSingleUser, setConversation, getConversation, newMessage, getMessage, uploadFile }

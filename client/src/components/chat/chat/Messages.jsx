@@ -9,6 +9,7 @@ import { getMessage, newMessage } from '../../../service/api';
 import Message from './Message';
 import { UserContext } from '../../../context/UserProvider';
 import ShareModal from '../modalActions/ShareModal';
+import ModalsSelect from '../modalActions/ModalsSelect';
 
 const Wrapper = styled(Box)`
     background-image: url(${'https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'});
@@ -57,6 +58,8 @@ const Messages = ({ person, conversation }) => {
             setMessages(data);
         }
         getData();
+        console.log(messages);
+        
     }, [conversation?._id, person._id, newMessageFlag]);
 
 
@@ -103,11 +106,13 @@ const Messages = ({ person, conversation }) => {
 
     return (
         <Wrapper>
-            <Dialog open={share.open} maxWidth={'lg'} > <ShareModal  text={share.text} conversationId={conversation._id}/> </Dialog>
+            <Dialog open={share.open} maxWidth={'lg'} > 
+                <ModalsSelect text={share.text} conversationId={conversation._id}/>
+            </Dialog>
             <Component>
                 {
                     messages && messages.map(message => (
-                        <Container ref={scrollRef}>
+                        <Container ref={scrollRef} key={message._id}>
                             <Message message={message} />
                         </Container>
                     ))

@@ -5,7 +5,7 @@ import { io } from 'socket.io-client'
 const AccountContext = createContext();
 
 const AccountProvider = ({children}) => {
-    const [account, setAccount] = useState();
+    const [account, setAccount] = useState(null);
     const [activeUsers, setActiveUsers] = useState([]);
     const [newMessageFlag, setNewMessageFlag] = useState(false);
     // useEffect(()=>{
@@ -14,6 +14,7 @@ const AccountProvider = ({children}) => {
     // },[])
     const socket = useRef();
     useEffect(()=>{
+      console.log(account);
       socket.current = io('ws://localhost:9000')
     },[])
 
