@@ -1,5 +1,5 @@
 const express = require('express');
-const { addUser, getAllUsers } = require('../controllers/userController');
+const { addUser, getAllUsers, getSingleUser } = require('../controllers/userController');
 const { newConversation, getConversation } = require('../controllers/conversationController');
 const { newMessage, getMessage } = require('../controllers/messageController');
 const { uploadFile, getImage, uploadImage } = require('../controllers/imageController');
@@ -14,6 +14,7 @@ function hello(req,res,next){
 
 router.route('/add').post(addUser);
 router.route('/users').get(getAllUsers);
+router.route('/singleuser/:id').get(getSingleUser);
 
 router.route('/conversation/add').post(newConversation);
 router.route('/conversation/get').post(getConversation);
