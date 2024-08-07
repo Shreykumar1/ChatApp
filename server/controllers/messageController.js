@@ -20,4 +20,14 @@ const getMessage = async (req,res) => {
     }
 }
 
-module.exports = { newMessage, getMessage }
+const updateMessage = async (req,res) => {
+    try {
+        const {id,text} = req.body;
+        const message = await Message.findByIdAndUpdate(id,{text : text,edited:true});
+        res.status(201).json(message);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+module.exports = { newMessage, getMessage, updateMessage }
