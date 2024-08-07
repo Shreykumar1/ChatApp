@@ -1,6 +1,4 @@
-
 import { Box, styled, Typography, Divider } from '@mui/material';
-
 import { emptyChatImage } from '../../../constants/data';
 
 const Component = styled(Box)`

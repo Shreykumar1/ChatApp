@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
 import { EmojiEmotions, AttachFile, Mic } from '@mui/icons-material';
 import { Box, styled, InputBase } from '@mui/material';
 import { uploadFile } from '../../../service/api';
+import EmojiPicker from 'emoji-picker-react';
 
 
 const Container = styled(Box)`
@@ -39,7 +39,7 @@ const ClipIcon = styled(AttachFile)`
 
 
 const Footer = ({sendText, setValue, value, file, setFile, setImage}) => {
-
+    const [emojiOpen,setEmojiOpen] = useState(false);
     useEffect(()=>{
         const getImage = async ()=> {
         if(file){
@@ -59,10 +59,22 @@ const Footer = ({sendText, setValue, value, file, setFile, setImage}) => {
         setFile(e.target.files[0])
         setValue(e.target.files[0].name)
     }
+    const handleEmojiClick = (emojiObject,event) => {
+        console.log(emojiObject);
+        setValue((prevMessage) => prevMessage + emojiObject.emoji);
+      };
+      const emojiStyle = {
+        height: "350px",
+        width: "300px",
+        position: "absolute",
+        bottom: "50px",
+        left: "-5.5px",
+      }
 
     return (
-        <Container>
-            <EmojiEmotions />
+        <Container style={{position: "relative"}}>
+            {emojiOpen &&<EmojiPicker onEmojiClick={handleEmojiClick} style={emojiStyle}/>}
+            <button style={{border: "none",background:"none",cursor:"pointer"}} onClick={()=>setEmojiOpen(!emojiOpen)}><EmojiEmotions style={{color: emojiOpen ?"#007700":"grey"}}/></button>
             <label htmlFor="fileInput">
                 <ClipIcon />
             </label>
