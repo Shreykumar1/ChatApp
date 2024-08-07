@@ -30,4 +30,14 @@ const updateMessage = async (req,res) => {
     }
 }
 
-module.exports = { newMessage, getMessage, updateMessage }
+const deleteMessage = async (req,res) => {
+    try {
+        const {id} = req.params;
+        const message = await Message.findByIdAndDelete(id);
+        res.status(201).json(message);
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+module.exports = { newMessage, getMessage, updateMessage, deleteMessage }
