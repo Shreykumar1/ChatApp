@@ -103,7 +103,7 @@ const TextMessage = ({ message }) => {
                 <div style={{ display: 'flex' }}>
                     {edited && <Time style={{ paddingRight: "5px" }}>Edited</Time>}
                     <Time>{formatDate(message.createdAt)}</Time>
-                    <MyDropdown text={message.text} person={message.senderId} conversationId={message.conversationId} />
+                    <MyDropdown text={message.text} person={message.senderId} conversationId={message.conversationId} message={message}/>
                 </div>
             </div>
         </>

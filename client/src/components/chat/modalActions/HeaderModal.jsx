@@ -25,7 +25,7 @@ const HeaderModal = ({ text }) => {
     const { setShare } = useContext(UserContext);
     return (
         <Header>
-            <button onClick={() => setShare({ text: '',person: '',conversationId: '', open: false, choice: '' })} style={btnStyle}><CloseIcon /></button>
+            <button onClick={() => setShare({ text: '',person: '',conversationId: '', open: false, choice: '',message: {} })} style={btnStyle}><CloseIcon /></button>
             <Text>{text}</Text>
         </Header>
     )

@@ -5,7 +5,7 @@ export const UserContext = createContext(null);
 const UserProvider = ({children}) => {
 
     const [ person, setPerson ] = useState({});
-    const [ share, setShare ] = useState({text : '',person: '',conversationId: '', open : false,choice: ''});
+    const [ share, setShare ] = useState({text : '',person: '',conversationId: '', open : false,choice: '',message: {}});
     
     return (
         <UserContext.Provider value={{ person, setPerson, share, setShare }}>

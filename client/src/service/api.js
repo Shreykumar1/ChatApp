@@ -68,6 +68,15 @@ const getMessage = async (id) => {
     }
 }
 
+const updateMessage = async (data) => {
+    try {
+        const response = await axios.patch(`${url}/message/update`,data);
+        return response.data;
+    } catch (error) {
+        console.log('ERROR in Patch Message Api ',error);
+    }
+}
+
 const uploadFile = async (data) => {
     try {
         const response = await axios.post(`${url}/file/upload`,data);
@@ -78,4 +87,4 @@ const uploadFile = async (data) => {
 }
 
 
-export   { addUser, getAllUsers,getSingleUser, setConversation, getConversation, newMessage, getMessage, uploadFile }
+export   { addUser, getAllUsers,getSingleUser, setConversation, getConversation, newMessage, getMessage,updateMessage, uploadFile }

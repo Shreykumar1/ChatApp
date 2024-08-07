@@ -54,7 +54,7 @@ const ReplyModal = () => {
     await newMessage(message);
 
     setNewMessageFlag(prev => !prev);
-    setShare({ text: '', person: '', conversationId: '', open: false, choice: '' });
+    setShare({ text: '', person: '', conversationId: '', open: false, choice: '', message: {} });
   }
 
 
