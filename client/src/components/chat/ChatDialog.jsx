@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Dialog, styled, Box } from '@mui/material';
+import { Dialog, styled, Box, useMediaQuery } from '@mui/material';
 
 import { UserContext } from '../../context/UserProvider';
 
@@ -8,15 +8,16 @@ import Menu from './menu/Menu';
 // import ChatBox from './chat/ChatBox';
 import EmptyChat from './chat/EmptyChat';
 import ChatBox from './chat/ChatBox';
+import { useTheme } from '@mui/material/styles';
 
 const Component = styled(Box)`
     display: flex;
 `;
-    
+
 const LeftComponent = styled(Box)`
     min-width: 450px;
 `;
-    
+
 const RightComponent = styled(Box)`
     width: 73%;
     min-width: 300px;
@@ -38,27 +39,41 @@ const dialogStyle = {
 const ChatDialog = () => {
 
     const { person } = useContext(UserContext);
-    
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
-        <Dialog 
-            open={true} 
-            BackdropProps={{style: {backgroundColor: 'unset'}}}
+        <Dialog
+            open={true}
+            BackdropProps={{ style: { backgroundColor: 'unset' } }}
             PaperProps={{ sx: dialogStyle }}
             maxWidth={'md'}
         >
-            <Component>
+            {!isMobile ? <Component>
                 <LeftComponent>
-                    <Menu/>
-                    {/* menu */}
+                    <Menu />
+                    {isMobile && "YO"}
                 </LeftComponent>
                 <RightComponent>
                     {
-                        Object.keys(person).length  ? <ChatBox/> : <EmptyChat />
+                        Object.keys(person).length ? <ChatBox /> : <EmptyChat />
                     }
+
                     {/* <EmptyChat /> */}
                     {/* <ChatBox /> */}
                 </RightComponent>
-            </Component>
+            </Component> :
+                <Component id="hello">
+                    <Component style={{width: "300px"}}>
+                    { !Object.keys(person).length ? <Menu /> :""}
+                    </Component>
+                    {/* <RightComponent> */}
+                        {
+                            Object.keys(person).length ? <ChatBox /> :""
+                        }
+                    {/* </RightComponent> */}
+                </Component> 
+            }
         </Dialog>
     )
 }
