@@ -15,7 +15,8 @@ const AccountProvider = ({children}) => {
     const socket = useRef();
     useEffect(()=>{
       console.log(account);
-      socket.current = io('ws://localhost:9000')
+      // socket.current = io('ws://localhost:9000')
+      socket.current = io('https://chatapp-socket-6grz.onrender.com')
     },[])
 
    return (

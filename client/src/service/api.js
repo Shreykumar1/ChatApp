@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = `http://localhost:3000`;
+// const url = `http://localhost:3000`;
+const url = `https://chatapp-w33r.onrender.com/`;
 
 const addUser = async (data) => {
   try {
