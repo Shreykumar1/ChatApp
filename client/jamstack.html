@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tap into Jamstack</title>
+  <style>
+    /* Reset some basic styles */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      color: #c7c7c7;
+      background: linear-gradient(180deg, #000 0%, #111 100%);
+      overflow-x: hidden;
+    }
+
+    /* Hero section styling */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin: 0.5rem 0;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      max-width: 600px;
+      color: #c7c7c7;
+    }
+
+    .hero .button {
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      background-color: #444;
+      color: #fff;
+      border-radius: 30px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .hero .button:hover {
+      background-color: #666;
+    }
+
+    .hero .subtext {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Background effect */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.6) 30%, transparent 70%);
+      background-image: radial-gradient(#333 1px, transparent 1px),
+        radial-gradient(#333 1px, transparent 1px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Tap into Jamstack</h1>
+    <p>Get started with WeframeTech—unlock the future of web development through Jamstack.</p>
+    <a href="#" class="button">Book Now</a>
+    <p class="subtext">No credit card required ✨ 14-days free trial</p>
+  </div>
+</body>
+</html>
